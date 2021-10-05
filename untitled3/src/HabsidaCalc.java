@@ -3,6 +3,8 @@ package calcRA;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import static java.lang.Integer.parseInt;
+
 
 public class HabsidaCalc {
     static Scanner scanner = new Scanner(System.in);
@@ -30,25 +32,35 @@ public class HabsidaCalc {
             }
         }
         String under_charString = String.valueOf(under_char);
-        String[] blacks = under_charString.split("[+-/*]");
+        String[] blacks = under_charString.split(" ");
         String stable00 = blacks[0];
-        String stable01 = blacks[1];
+        String stable01 = blacks[2];
         String string03 = stable01.trim();
         a = romanToNumber(stable00);
         b = romanToNumber(string03);
-        if (a < 0 && b < 0) {
-            result = 0;
-        } else {
-            result = calculated(a, b, operation);
-            System.out.println("---Результат для римских цифр----");
-            String resultRoman = convertNumToRoman(result);
-            System.out.println(stable00 + " " + operation + " " + string03 + " = " + resultRoman);
+        {
+            if (a < 0 && b < 0) {
+                result = 0;
+            } else {
+                result = calculated(a, b, operation);
+                System.out.println("---Результат для римских цифр---");
+                String resultRoman = convertNumToRoman(result);
+                System.out.println(stable00 + " " + operation + " " + string03 + " = " + resultRoman);
+            }
         }
-        a = Integer.parseInt(stable00);
-        b = Integer.parseInt(string03);
-        result = calculated(a, b, operation);
-        System.out.println("--Результат для арабских цифр----");
-        System.out.println(a + " " + operation + " " + b + " = " + result);
+        //a = parseInt(stable00);
+       // b = parseInt(string03);
+       try {
+         a = parseInt(stable00);
+       b = parseInt(string03);
+           result = calculated(a, b, operation);
+           System.out.println("--Результат для арабских цифр--");
+           System.out.println(a + " " + operation + " " + b + " = " + result);
+      } catch (NumberFormatException e) {
+        System.out.println(" ");
+    }
+
+
     }
 
     private static String convertNumToRoman (int numArabian) {
